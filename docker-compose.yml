@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: wallet_user
+      POSTGRES_PASSWORD: wallet_pass
+      POSTGRES_DB: wallet
+    ports:
+      - "5432:5432"
+
+  service:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    env_file:
+      - .env
+
+  migrate:
+    build: .
+    command: [ "/app/migrate" ]
+    depends_on:
+      - db
+    env_file:
+      - .env
+    volumes:
+      - ./migrations:/app/migrations
+
+volumes:
+  db_data:

@@ -1,0 +1,28 @@
+meta {
+  name: draw
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/api/v1/wallet
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "walletId": "f2dee4b3-06bb-4a2d-974a-7360446fb70d",
+    "operationType": "WITHDRAW",
+    "amount": 500
+  }
+}
+
+settings {
+  encodeUrl: false
+  timeout: 0
+}

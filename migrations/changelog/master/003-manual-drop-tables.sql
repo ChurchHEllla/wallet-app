@@ -1,0 +1,3 @@
+--DROP TABLE IF EXISTS wallets CASCADE;
+--DROP TABLE IF EXISTS wallet_operations CASCADE;
+--DELETE FROM schema_migrations;
