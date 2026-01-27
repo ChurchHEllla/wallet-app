@@ -20,7 +20,6 @@ const (
 )
 const patternBalance = "/api/v1/wallet"
 
-// TODO написать тесты
 func main() {
 	cfg, err := config.Load()
 	if err != nil {

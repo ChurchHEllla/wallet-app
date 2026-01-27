@@ -3,32 +3,22 @@ package get_api_1_wallets
 import (
 	"log"
 	"net/http"
-	"strings"
-	"wallet-app/internal/domain/wallet/service"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 )
 
 type Handle struct {
-	service *service.Service
+	service Service
 }
 
-func New(s *service.Service) *Handle {
+func New(s Service) *Handle {
 	return &Handle{service: s}
-}
-
-type GetWalletResponse struct {
-	ID        string `json:"id"`
-	Balance   int64  `json:"balance"`
-	CreatedAt string `json:"created_at"`
 }
 
 func (h *Handle) Handler(c *gin.Context) {
 
-	walletId := strings.Split(c.FullPath(), ":")[1]
-
-	idStr := c.Param(walletId)
+	idStr := c.Param("walletId")
 	if idStr == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "missing wallet id"})
 		return

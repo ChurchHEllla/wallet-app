@@ -3,28 +3,16 @@ package api_1_wallet
 import (
 	"log"
 	"net/http"
-	"wallet-app/internal/domain/wallet/models"
-	"wallet-app/internal/domain/wallet/service"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 )
 
-type UpdateBalanceRequest struct {
-	WalletID      string               `json:"walletId"`      // spelling
-	OperationType models.OperationType `json:"operationType"` // "DEPOSIT" или "WITHDRAW"
-	Amount        int64                `json:"amount"`
-}
-
-type UpdateBalanceResponse struct {
-	Status string `json:"status"`
-}
-
 type Handle struct {
-	service *service.Service
+	service Service
 }
 
-func New(s *service.Service) *Handle {
+func New(s Service) *Handle {
 	return &Handle{service: s}
 }
 

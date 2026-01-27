@@ -2,26 +2,15 @@ package create_api_1_wallet
 
 import (
 	"net/http"
-	"wallet-app/internal/domain/wallet/service"
 
 	"github.com/gin-gonic/gin"
 )
 
-type CreateWalletRequest struct {
-	InitialBalance int64 `json:"initial_balance"`
-}
-
-type CreateWalletResponse struct {
-	ID        string `json:"id"`
-	Balance   int64  `json:"balance"`
-	CreatedAt string `json:"created_at"`
-}
-
 type Handle struct {
-	service *service.Service
+	service Service
 }
 
-func New(s *service.Service) *Handle {
+func New(s Service) *Handle {
 	return &Handle{service: s}
 }
 
@@ -29,6 +18,10 @@ func (h *Handle) Handler(c *gin.Context) {
 	var req CreateWalletRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid request body"})
+		return
+	}
+	if req.InitialBalance <= 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "amount must be positive"})
 		return
 	}
 
