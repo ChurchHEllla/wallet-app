@@ -95,7 +95,7 @@ func TestHandler_UpdateBalance_InvalidOperationType(t *testing.T) {
 
 	reqBody := UpdateBalanceRequest{
 		WalletID:      uuid.New().String(),
-		OperationType: models.OperationType(999), // невалидный
+		OperationType: models.OperationType("123"), // невалидный
 		Amount:        100,
 	}
 

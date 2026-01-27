@@ -14,6 +14,7 @@ func New(s Service) *Handle {
 	return &Handle{service: s}
 }
 
+// Handler создает кошелек
 func (h *Handle) Handler(c *gin.Context) {
 	var req CreateWalletRequest
 	if err := c.ShouldBindJSON(&req); err != nil {

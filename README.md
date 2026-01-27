@@ -36,7 +36,7 @@ wallet-app/
 
 ## API (кратко)
 
-Примеры того, что умеет сервис:
+Примеры того, что умеет сервис (ручки):
 
 * Создать кошелёк
 * Получить баланс по `wallet_id`
@@ -64,57 +64,29 @@ git clone https://github.com/ChurchHEllla/wallet-app.git
 ИЛИ
 Скачайте [ZIP](https://github.com/ChurchHEllla/wallet-app/archive/refs/heads/main.zip) проекта
 
-### 2. Собрать и запустить проект
+### 2. Собрать и запустить проект через Docker
 
 #### docker-compose
 ```bash
-docker compose up --build
+docker compose-up --build
 ИЛИ
+make docker-up
+```
+#### Миграция на docker
+```bash
 make docker-migrate
 ```
-#### Локальный билд
+#### Запуск тестов хэндлеров
 ```bash
-make build
+make test-handler
 ```
-Что произойдёт:
-
-1. Поднимется контейнер с **PostgreSQL**
-2. Выполнятся **миграции** (создадутся таблицы)
-3. Запустится **HTTP‑сервис**
-
-Если всё ок — сервис будет доступен по адресу:
-
-```
-http://localhost:8080
-```
-
 ---
 
 ## Переменные окружения
 
 Они задаются в `.env`:
-* `POSTGRES_DB` - имя базы
-* `POSTGRES_PORT` - порт подключения
-* `POSTGRES_USER` - пользователь
-* `POSTGRES_PASSWORD` - пароль
-* `DATABASE_HOST` - строка подключения (используется сервисом и миграциями)
-
----
-
-## Миграции
-
-Миграции лежат в:
-
-```
-/migrations/changelog/master
-```
-
-Они автоматически применяются при запуске через **docker-compose**.
-
-Если нужно прогнать миграции отдельно:
-
-```bash
-docker compose run migrate
-ИЛИ
-make migrate
-```
+* `POSTGRES_DB=wallet` - имя базы
+* `POSTGRES_PORT=5432` - порт подключения
+* `POSTGRES_USER=wallet_user` - пользователь
+* `POSTGRES_PASSWORD=wallet_pass` - пароль
+* `DATABASE_HOST=db` - строка подключения (используется сервисом и миграциями)

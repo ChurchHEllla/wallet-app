@@ -16,6 +16,7 @@ func New(s Service) *Handle {
 	return &Handle{service: s}
 }
 
+// Handler Проводит операцию изменения баланса кошелька
 func (h *Handle) Handler(c *gin.Context) {
 	var req UpdateBalanceRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
@@ -42,7 +43,14 @@ func (h *Handle) Handler(c *gin.Context) {
 
 	err = h.service.UpdateBalance(c.Request.Context(), walletID, req.Amount, req.OperationType)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		switch err.Error() {
+		case "wallet not found":
+			c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		case "insufficient funds":
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		default:
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		}
 		return
 	}
 

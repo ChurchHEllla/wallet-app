@@ -1,14 +1,10 @@
 .PHONY: migrate run build
 
-migrate:
-	go run cmd/migrate/main.go
-
-run:
-	go run cmd/service/main.go
-
-build:
-	go build -o wallet-app cmd/service/main.go
-	go build -o migrate-tool cmd/migrate/main.go
+test-handler:
+	go test ./internal/api/handler/...
 
 docker-migrate:
-	docker-compose run --rm app go run cmd/migrate/main.go
+	docker-compose run --rm migrate
+
+docker-up:
+	docker-compose up --build

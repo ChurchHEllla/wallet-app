@@ -16,6 +16,7 @@ func New(s Service) *Handle {
 	return &Handle{service: s}
 }
 
+// Handler получает кошелек по уникальному UUID
 func (h *Handle) Handler(c *gin.Context) {
 
 	idStr := c.Param("walletId")
