@@ -89,4 +89,4 @@ make test-handler
 * `POSTGRES_PORT=5432` - порт подключения
 * `POSTGRES_USER=wallet_user` - пользователь
 * `POSTGRES_PASSWORD=wallet_pass` - пароль
-* `DATABASE_HOST=db` - строка подключения (используется сервисом и миграциями)
+* `POSTGRES_HOST=db` - строка подключения (используется сервисом и миграциями)
